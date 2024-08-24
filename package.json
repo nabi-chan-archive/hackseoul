@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "format": "prettier --ignore-unknown --write .",
+    "gen-type": "supabase gen types --lang=typescript --project-id 'jqyjamgvvkypbgodxvfq' > src/utils/supabase/types.ts",
     "lint": "next lint",
     "start": "next start"
   },
