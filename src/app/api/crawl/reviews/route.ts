@@ -62,10 +62,13 @@ router.get(async (request: NextRequest) => {
 
     await supabase.from('reviews').upsert(list).throwOnError()
 
-    return new NextResponse('success')
+    return NextResponse.json({
+      message: 'success',
+      created: list.length,
+    })
   } catch (error) {
     console.log('crawl failed :', toString(error))
-    return new NextResponse('error')
+    return NextResponse.json({ message: 'error' })
   }
 })
 

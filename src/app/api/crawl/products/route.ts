@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { toNumber, trim } from 'lodash-es'
+import { toNumber, trim, toString } from 'lodash-es'
 import { load } from 'cheerio'
 import router from '@/utils/next-connect'
 import { supabase } from '@/utils/supabase/client'
@@ -68,10 +68,14 @@ router.get(async (request: NextRequest) => {
     await supabase.from('categories').upsert(categories).throwOnError()
     await supabase.from('products').upsert(products).throwOnError()
 
-    return new NextResponse('success')
+    return NextResponse.json({
+      message: 'success',
+      products: products.length,
+      categories: categories.length,
+    })
   } catch (error) {
-    console.log('crawl failed :', error)
-    return new NextResponse('error')
+    console.log('crawl failed :', toString(error))
+    return NextResponse.json({ message: 'error' })
   }
 })
 

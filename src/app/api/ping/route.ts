@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import router from '@/utils/next-connect'
 
 router.get(async () => {
-  return new NextResponse('pong')
+  return NextResponse.json({ message: 'pong' })
 })
 
 export const GET = (request: NextRequest, context: unknown) => {
