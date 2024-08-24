@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
 
@@ -10,7 +10,8 @@ interface TabItem {
 }
 
 export function Tab({ tabs }: { tabs: TabItem[] }) {
-  const [activeTab, setActiveTab] = useState(tabs[0].label)
+  const rest = useSearchParams()
+  const [activeTab, setActiveTab] = useState(rest.get('tab') ?? tabs[0].label)
   const { push } = useRouter()
 
   return (
@@ -21,7 +22,7 @@ export function Tab({ tabs }: { tabs: TabItem[] }) {
             key={tab.label}
             onClick={() => {
               setActiveTab(tab.label)
-              push(`?tab=${tab.label}`)
+              push(`?tab=${tab.label}&brand=${rest.get('brand')}`)
             }}
             className="flex-1 p-4 bg-slate-200 truncate"
             style={{
