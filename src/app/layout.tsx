@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="p-8 h-screen">
         <ReactQueryProviders>
           <NiceModalProvider>
-            <div className="max-w-96 mx-auto shadow-xl border-gray-50 border-[1px] border-solid h-full overflow-y-auto rounded-lg">
+            <div className="max-w-lg mx-auto shadow-xl border-gray-50 border-[1px] border-solid h-full overflow-y-auto rounded-lg">
               {children}
             </div>
           </NiceModalProvider>
