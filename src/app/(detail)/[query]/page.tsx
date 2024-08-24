@@ -3,7 +3,13 @@ import { Tab } from '@/components/tab'
 import Products from './components/Products'
 import Reviews from './components/Reviews'
 
-export default async function Page({ params }: { params: { query: string } }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { query: string }
+  searchParams: { brand: string }
+}) {
   const query = decodeURIComponent(params.query)
   const { t } = createTranslation('common')
 
@@ -13,11 +19,21 @@ export default async function Page({ params }: { params: { query: string } }) {
         tabs={[
           {
             label: t('reviews'),
-            content: <Reviews query={query} />,
+            content: (
+              <Reviews
+                query={query}
+                brand={searchParams.brand}
+              />
+            ),
           },
           {
             label: t('products'),
-            content: <Products query={query} />,
+            content: (
+              <Products
+                query={query}
+                brand={searchParams.brand}
+              />
+            ),
           },
         ]}
       />
