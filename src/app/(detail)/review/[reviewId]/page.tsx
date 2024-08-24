@@ -1,6 +1,7 @@
 import createTranslation from 'next-translate/createTranslation'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import { supabase } from '@/utils/supabase/client'
 import { Rating } from '@/components/rating'
 import { Card } from '@/components/card'
@@ -59,24 +60,36 @@ export default async function Page({
       </main>
       <footer className="p-4 flex flex-col gap-2">
         <h1 className="text-xl font-bold">{t('review.card.label')}</h1>
-        <Card
-          external
-          href={`https://www.coupang.com/vp/products/${review.product_id}`}
-          image={product.images[0]}
-        >
-          <dl>
-            <dt className="hidden" />
-            <dd className="line-clamp-2 text-lg font-bold">{product.title}</dd>
-          </dl>
-          <dl>
-            <dt className="hidden" />
-            <dd className="line-clamp-2 text-lg font-bold">
-              {product.price.toLocaleString()}
-              {t('product.price.suffix')}
-            </dd>
-          </dl>
-          <Rating score={product.rating} />
-        </Card>
+        <div className="p-4 rounded-md shadow-md flex flex-col gap-4">
+          <Card
+            href="#"
+            image={product.images[0]}
+          >
+            <dl>
+              <dt className="hidden" />
+              <dd className="line-clamp-2 text-lg font-bold">
+                {product.title}
+              </dd>
+            </dl>
+            <dl>
+              <dt className="hidden" />
+              <dd className="line-clamp-2 text-lg font-bold">
+                {product.price.toLocaleString()}
+                {t('product.price.suffix')}
+              </dd>
+            </dl>
+            <Rating score={product.rating} />
+          </Card>
+
+          <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://www.coupang.com/vp/products/${review.product_id}`}
+            className="block text-center bg-[#2A3CE5] text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none w-full"
+          >
+            {t('product.purchase')}
+          </Link>
+        </div>
       </footer>
     </>
   )
