@@ -44,7 +44,7 @@ export default async function Products({ query }: { query: string }) {
           <div className="w-full flex flex-col justify-center overflow-hidden gap-2">
             <h1 className="font-bold truncate">{product.title}</h1>
             <p>{Number(product.price).toLocaleString('ko')} 원</p>
-            <Rating score={product.score} />
+            <Rating score={product.rating} />
           </div>
         </Link>
       ))}

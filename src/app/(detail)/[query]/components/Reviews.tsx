@@ -67,7 +67,7 @@ export default async function Reviews({ query }: { query: string }) {
             <h1 className="font-bold truncate">{review.title}</h1>
             <p className="line-clamp-3">{review.content}</p>
           </div>
-          <Rating score={review.rating} />
+          <Rating score={review.score} />
         </Card>
       ))}
     </div>

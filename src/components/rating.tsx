@@ -9,7 +9,7 @@ export function Rating({ score = 5 }: { score: number }) {
     <dl>
       <dt className="hidden">{t('formatted.score', { score })}</dt>
       <dd className="flex items-center">
-        {Array.from({ length: Math.ceil(score) }).map((_, index) => (
+        {Array.from({ length: Math.floor(score) }).map((_, index) => (
           <StarFilledIcon
             key={index}
             className="text-yellow-300 w-6"
