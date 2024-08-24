@@ -7,5 +7,5 @@ router.get(async () => {
 })
 
 export const GET = (request: NextRequest, context: unknown) => {
-  return router.run(request, context)
+  return router.run(request, context) as Promise<NextResponse>
 }
