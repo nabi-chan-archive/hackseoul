@@ -70,7 +70,7 @@ export default async function Page({
 
   return (
     <>
-      <header className="px-4 pt-8">
+      <header className="px-4 pt-4">
         <div className="relative w-full aspect-square">
           <Image
             width={1024}
