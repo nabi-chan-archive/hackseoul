@@ -1,0 +1,3 @@
+{
+  "extends": ["@channel.io/eslint-config/next"]
+}

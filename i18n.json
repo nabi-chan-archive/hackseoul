@@ -1,0 +1,10 @@
+{
+  "locales": ["ko"],
+  "defaultLocale": "ko",
+  "keySeparator": false,
+  "nsSeparator": false,
+  "defaultNS": "common",
+  "pages": {
+    "*": ["common"]
+  }
+}
