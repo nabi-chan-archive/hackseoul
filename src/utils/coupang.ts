@@ -13,7 +13,7 @@ export const coupang = async (url: string, params: unknown = {}) => {
     .then((data) => data.data)
 
   let html = cached?.html ?? ''
-  if (!cached || +new Date(cached.created_at) < Date.now() - 1000 * 60 * 5) {
+  if (!cached) {
     const data = await axios
       .get<string>(url, {
         params,

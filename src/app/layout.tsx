@@ -18,10 +18,17 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>
+    <html
+      lang="ko"
+      className={inter.className}
+    >
+      <body className="p-8 h-screen">
         <ReactQueryProviders>
-          <NiceModalProvider>{children}</NiceModalProvider>
+          <NiceModalProvider>
+            <div className="max-w-lg mx-auto shadow-xl border-gray-50 border-[1px] border-solid h-full overflow-y-auto rounded-lg">
+              {children}
+            </div>
+          </NiceModalProvider>
         </ReactQueryProviders>
       </body>
     </html>
