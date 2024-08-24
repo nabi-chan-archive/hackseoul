@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { toNumber, trim, toString } from 'lodash-es'
+import { toNumber, trim } from 'lodash-es'
 import { load } from 'cheerio'
 import router from '@/utils/next-connect'
 import { supabase } from '@/utils/supabase/client'
@@ -33,7 +33,12 @@ router.get(async (request: NextRequest) => {
         query,
         id: toNumber($(item).find('a').attr('data-product-id')),
         product_id: $(item).find('a').attr('data-product-id'),
-        images: [$(item).find('dt.image img').attr('src')!],
+        images: [
+          $(item)
+            .find('dt.image img')
+            .attr('src')!
+            .replace(/^\/\//, 'https://'),
+        ],
         title: trim($(item).find('dd.descriptions .name').text()).replaceAll(
           /\s+/g,
           ' '
@@ -65,7 +70,7 @@ router.get(async (request: NextRequest) => {
           self.findIndex((p) => p.id === product.id) === index
       )
 
-    await supabase.from('categories').upsert(categories).throwOnError()
+    await supabase.from('brands').upsert(categories).throwOnError()
     await supabase.from('products').upsert(products).throwOnError()
 
     return NextResponse.json({
@@ -74,7 +79,7 @@ router.get(async (request: NextRequest) => {
       categories: categories.length,
     })
   } catch (error) {
-    console.log('crawl failed :', toString(error))
+    console.log('crawl failed :', JSON.stringify(error, null, 2))
     return NextResponse.json({ message: 'error' })
   }
 })

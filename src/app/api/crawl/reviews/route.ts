@@ -5,7 +5,6 @@ import { load } from 'cheerio'
 import router from '@/utils/next-connect'
 import { coupang } from '@/utils/coupang'
 import { supabase } from '@/utils/supabase/client'
-import type { TablesInsert } from '@/utils/supabase/types'
 
 router.get(async (request: NextRequest) => {
   try {
@@ -54,11 +53,16 @@ router.get(async (request: NextRequest) => {
           reviewed_at: reviewedAt.toISOString(),
           title: content.split('\n')[0],
           product_id: toNumber(productId),
+          product_name: $(item)
+            .find('.sdp-review__article__list__info__product-info__name')
+            .text(),
           score,
           content,
           images,
-        } satisfies TablesInsert<'reviews'>
+        }
       })
+      .filter((item) => item.content.length > 0)
+      .filter((item) => item.images.length > 0)
 
     await supabase.from('reviews').upsert(list).throwOnError()
 
