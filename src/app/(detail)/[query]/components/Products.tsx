@@ -32,20 +32,16 @@ export default async function Products({ query }: { query: string }) {
         <Link
           key={product.id}
           href={`/product/${product.id}`}
-          className="p-4 bg-slate-50 rounded-md grid grid-cols-[80px,calc(100%-1rem-5rem)] gap-4"
+          className="grid grid-cols-[100px,1fr] gap-4 border-2 border-slate-200 p-2 rounded-xl"
         >
-          {product.images.length > 0 ? (
-            <Image
-              className="bg-slate-600 rounded-md object-cover w-20 aspect-square"
-              src={product.images[0]}
-              alt=""
-              width={300}
-              height={300}
-            />
-          ) : (
-            <div className="aspect-square flex-1 bg-slate-600 rounded-md object-cover w-4" />
-          )}
-          <div className="flex flex-col">
+          <Image
+            width={300}
+            height={300}
+            className="object-cover aspect-square w-full rounded-lg"
+            src={product.images[0]}
+            alt=""
+          />
+          <div className="w-full flex flex-col justify-center overflow-hidden gap-2">
             <h1 className="font-bold truncate">{product.title}</h1>
             <p>{Number(product.price).toLocaleString('ko')} 원</p>
             <Rating score={product.score} />

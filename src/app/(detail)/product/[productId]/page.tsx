@@ -1,6 +1,5 @@
 import createTranslation from 'next-translate/createTranslation'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import Image from 'next/image'
 import { min } from 'lodash-es'
 import { format } from 'date-fns'
@@ -9,6 +8,7 @@ import { supabase } from '@/utils/supabase/client'
 import { http } from '@/utils/http'
 import { Rating } from '@/components/rating'
 import { Order } from '@/components/order'
+import { Card } from '@/components/card'
 
 export default async function Page({
   params,
@@ -137,45 +137,36 @@ export default async function Page({
       </nav>
       <main className="px-4 pt-6 pb-12 flex flex-col gap-4">
         {reviews.map((review) => (
-          <Link
+          <Card
             key={review.id}
             href={`/review/${review.id}`}
-            className="grid grid-cols-[150px,1fr] gap-2 border-2 border-slate-200 p-2 rounded-xl"
+            image={review.images[0]}
           >
-            <Image
-              width={300}
-              height={300}
-              className="object-cover aspect-square w-full rounded-lg"
-              src={review.images[0]}
-              alt=""
-            />
-            <div className="w-full flex flex-col justify-between overflow-hidden gap-2">
-              {/* 상품명 / 리뷰 제목 */}
-              <div className="flex flex-col">
-                <dl>
-                  <dt className="hidden">상품명</dt>
-                  <dd className="truncate text-sm text-slate-500">
-                    {review.product_name}
-                  </dd>
-                </dl>
-                <dl>
-                  <dt className="hidden">리뷰 제목</dt>
-                  <dd className="text-lg font-bold truncate">{review.title}</dd>
-                </dl>
-                <dl>
-                  <dt className="hidden">리뷰 내용</dt>
-                  <dd className="line-clamp-3">{review.content}</dd>
-                </dl>
-              </div>
-              {/* 별점 */}
-              <div className="flex gap-2 items-center justify-between">
-                <Rating score={review.score} />
-                <span className="text-sm text-slate-500">
-                  {format(review.reviewed_at, 'yyyy-MM-dd')}
-                </span>
-              </div>
+            {/* 상품명 / 리뷰 제목 */}
+            <div className="flex flex-col">
+              <dl>
+                <dt className="hidden">상품명</dt>
+                <dd className="truncate text-sm text-slate-500">
+                  {review.product_name}
+                </dd>
+              </dl>
+              <dl>
+                <dt className="hidden">리뷰 제목</dt>
+                <dd className="text-lg font-bold truncate">{review.title}</dd>
+              </dl>
+              <dl>
+                <dt className="hidden">리뷰 내용</dt>
+                <dd className="line-clamp-3">{review.content}</dd>
+              </dl>
             </div>
-          </Link>
+            {/* 별점 */}
+            <div className="flex gap-2 items-center justify-between">
+              <Rating score={review.score} />
+              <span className="text-sm text-slate-500">
+                {format(review.reviewed_at, 'yyyy-MM-dd')}
+              </span>
+            </div>
+          </Card>
         ))}
       </main>
     </>

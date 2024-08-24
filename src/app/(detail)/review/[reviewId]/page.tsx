@@ -1,9 +1,9 @@
 import createTranslation from 'next-translate/createTranslation'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 import { supabase } from '@/utils/supabase/client'
 import { Rating } from '@/components/rating'
+import { Card } from '@/components/card'
 
 export default async function Page({
   params,
@@ -59,34 +59,23 @@ export default async function Page({
       </main>
       <footer className="p-4 flex flex-col gap-2">
         <h1 className="text-xl font-bold">구매한 제품</h1>
-        <Link
+        <Card
           href={`/product/${review.product_id}`}
-          className="grid grid-cols-[150px,1fr] gap-2 border-2 border-slate-200 p-2 rounded-xl"
+          image={product.images[0]}
         >
-          <Image
-            width={300}
-            height={300}
-            className="object-cover aspect-square w-full rounded-lg"
-            src={product.images[0]}
-            alt=""
-          />
-          <div className="w-full flex flex-col justify-center overflow-hidden gap-2">
-            <dl>
-              <dt className="hidden">상품명</dt>
-              <dd className="line-clamp-2 text-lg font-bold">
-                {product.title}
-              </dd>
-            </dl>
-            <dl>
-              <dt className="hidden">가격</dt>
-              <dd className="line-clamp-2 text-lg font-bold">
-                {product.price.toLocaleString()}
-                {t('product.price.suffix')}
-              </dd>
-            </dl>
-            <Rating score={product.rating} />
-          </div>
-        </Link>
+          <dl>
+            <dt className="hidden">상품명</dt>
+            <dd className="line-clamp-2 text-lg font-bold">{product.title}</dd>
+          </dl>
+          <dl>
+            <dt className="hidden">가격</dt>
+            <dd className="line-clamp-2 text-lg font-bold">
+              {product.price.toLocaleString()}
+              {t('product.price.suffix')}
+            </dd>
+          </dl>
+          <Rating score={product.rating} />
+        </Card>
       </footer>
     </>
   )
