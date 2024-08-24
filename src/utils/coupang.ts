@@ -12,6 +12,10 @@ export const coupang = async (url: string, params: unknown = {}) => {
     .single()
     .then((data) => data.data)
 
+  console.log({
+    url: fullUrl,
+  })
+
   let html = cached?.html ?? ''
   if (!cached) {
     const data = await axios
