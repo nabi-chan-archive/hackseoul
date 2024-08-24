@@ -1,60 +1,36 @@
-import { redirect, RedirectType } from 'next/navigation'
-import createTranslation from 'next-translate/createTranslation'
+'use client'
+import Image from 'next/image'
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import { supabase } from '@/utils/supabase/client'
+import logo from '@/assets/logo.png'
 
-export default async function Home() {
-  const { t } = createTranslation('common')
-  const categories = await supabase
-    .from('category')
-    .select('id, category')
-    .throwOnError()
+export default function Page() {
+  const handleGitHubLogin = async () => {
+    try {
+      await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          redirectTo: `${process.env.NEXT_PUBLIC_HOMEPAGE_URL}/search`,
+        },
+      })
+    } catch (error) {
+      console.error('Unexpected error:', error)
+    }
+  }
 
   return (
-    <form
-      action={async (formData: FormData) => {
-        'use server'
-        await supabase
-          .from('category')
-          .upsert(
-            {
-              category: formData.get('category') as string,
-            },
-            {
-              onConflict: 'category',
-            }
-          )
-          .throwOnError()
-        redirect(
-          `${encodeURIComponent(formData.get('category') as string)}`,
-          RedirectType.push
-        )
-      }}
-      className="flex flex-col items-center justify-center h-full p-8 gap-4"
-    >
-      <div className="flex flex-col items-center">
-        <h1 className="text-2xl font-bold">{t('service.name')}</h1>
-        <p>{t('service.description')}</p>
-      </div>
-      <input
-        name="category"
-        list="categories"
-        placeholder={t('search.placeholder')}
-        className="border-2 rounded-md p-4 w-full"
+    <div className="px-10 py-20 flex flex-col justify-between h-full">
+      <Image
+        src={logo}
+        alt="프리뷰 로고"
       />
-      <datalist id="categories">
-        {categories.data?.map(({ id, category }) => (
-          <option
-            key={id}
-            value={category}
-          />
-        ))}
-      </datalist>
       <button
-        type="submit"
-        className="bg-green-400 px-4 py-2 rounded-md w-full font-bold"
+        onClick={handleGitHubLogin}
+        className="bg-[#2A3CE5] text-white font-semibold py-3 px-6 rounded-lg shadow-lg flex items-center justify-between hover:bg-blue-700 focus:outline-none w-full"
       >
-        {t('search.button')}
+        <span className="flex-1 text-center">GitHub 로 시작하기</span>
+        <ArrowRightIcon className="w-5" />
       </button>
-    </form>
+    </div>
   )
 }
