@@ -64,6 +64,8 @@ export type Database = {
           price: number | null
           product_id: string | null
           query: string | null
+          rating: number | null
+          rating_count: number | null
           shipping_price: number | null
           title: string | null
         }
@@ -76,6 +78,8 @@ export type Database = {
           price?: number | null
           product_id?: string | null
           query?: string | null
+          rating?: number | null
+          rating_count?: number | null
           shipping_price?: number | null
           title?: string | null
         }
@@ -88,6 +92,8 @@ export type Database = {
           price?: number | null
           product_id?: string | null
           query?: string | null
+          rating?: number | null
+          rating_count?: number | null
           shipping_price?: number | null
           title?: string | null
         }
@@ -99,7 +105,7 @@ export type Database = {
           crawl_at: string | null
           created_at: string
           external_data: Json | null
-          id: number
+          id: string
           images: string[] | null
           product_id: number | null
           reviewed_at: string | null
@@ -111,7 +117,7 @@ export type Database = {
           crawl_at?: string | null
           created_at?: string
           external_data?: Json | null
-          id?: number
+          id: string
           images?: string[] | null
           product_id?: number | null
           reviewed_at?: string | null
@@ -123,7 +129,7 @@ export type Database = {
           crawl_at?: string | null
           created_at?: string
           external_data?: Json | null
-          id?: number
+          id?: string
           images?: string[] | null
           product_id?: number | null
           reviewed_at?: string | null
