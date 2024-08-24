@@ -3,5 +3,7 @@
   "service.name": "free-view",
   "service.description": "구매하고 싶은 상품을 함께 찾아볼까요?",
   "search.placeholder": "검색어를 입력하세요",
-  "search.button": "찾아보기"
+  "search.button": "찾아보기",
+  "reviews": "리뷰 보기",
+  "products": "상품 보기"
 }
