@@ -10,14 +10,18 @@ router.get(async (request: NextRequest) => {
   try {
     const query = new URL(request.url).searchParams.get('query')!
     const page = new URL(request.url).searchParams.get('page')!
+    const brand = new URL(request.url).searchParams.get('brand')!
 
     const html = await coupang('/np/search', {
       page,
       q: query,
       listSize: 100,
+      brand: brand.replaceAll(/[^0-9]/g, '') || undefined,
     })
 
     const $ = load(html)
+
+    $('#searchSdwAgingCarouselWidget').remove()
 
     const categories = $('#searchBrandFilter .search-option-item')
       .get()
@@ -67,6 +71,7 @@ router.get(async (request: NextRequest) => {
             .text()
             .replaceAll(/[^0-9]/g, '')
         ),
+        brand,
       }))
       .filter((product) => product.images.length > 0)
       .filter((product) => Number.isSafeInteger(product.price))
