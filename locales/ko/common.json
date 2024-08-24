@@ -22,5 +22,6 @@
   "product.sort.created_at": "최신순",
   "product.sort.score": "평점순",
 
+  "formatted.price": "평점 : {{ score }}점",
   "formatted.score": "평점 : {{ score }}점"
 }
