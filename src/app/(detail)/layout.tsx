@@ -51,7 +51,7 @@ export default async function DetailLayout({
           </datalist>
           <button
             type="submit"
-            className="bg-green-400 p-2 rounded-md font-bold"
+            className="bg-[#2A3CE5] text-white p-2 rounded-md font-bold"
           >
             {t('search.button')}
           </button>
