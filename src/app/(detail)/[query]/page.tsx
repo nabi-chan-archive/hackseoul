@@ -1,12 +1,11 @@
 import createTranslation from 'next-translate/createTranslation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { StarIcon } from '@heroicons/react/24/solid'
-import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline'
 import { setTimeout } from 'timers/promises'
 import { supabase } from '@/utils/supabase/client'
 import { Tab } from '@/components/tab'
 import { http } from '@/utils/http'
+import { Rating } from '@/components/rating'
 
 export default async function Page({ params }: { params: { query: string } }) {
   const query = decodeURIComponent(params.query)
@@ -93,28 +92,7 @@ export default async function Page({ params }: { params: { query: string } }) {
                         <h1 className="font-bold truncate">{review.title}</h1>
                         <p className="line-clamp-3">{review.content}</p>
                       </div>
-                      <div className="flex">
-                        {Array.from({ length: Math.ceil(review.score) }).map(
-                          (_, i) => (
-                            <div
-                              key={i}
-                              className="block w-6"
-                            >
-                              <StarIcon className="text-yellow-300" />
-                            </div>
-                          )
-                        )}
-                        {Array.from({
-                          length: Math.ceil(5 - review.score),
-                        }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="block w-6"
-                          >
-                            <StarOutlineIcon className="text-gray-300" />
-                          </div>
-                        ))}
-                      </div>
+                      <Rating score={review.rating} />
                     </div>
                   </Link>
                 ))}
@@ -145,30 +123,7 @@ export default async function Page({ params }: { params: { query: string } }) {
                     <div className="flex flex-col">
                       <h1 className="font-bold truncate">{product.title}</h1>
                       <p>{Number(product.price).toLocaleString('ko')} 원</p>
-                      <div className="flex items-center">
-                        {Array.from({
-                          length: Math.floor(product.rating),
-                        }).map((_, i) => (
-                          <StarIcon
-                            key={i}
-                            className="text-yellow-300 w-6"
-                          />
-                        ))}
-                        {!product.rating.toFixed(1).endsWith('.0') && (
-                          <StarIcon className="text-gray-300 w-6" />
-                        )}
-                        {Array.from({
-                          length: Math.floor(5 - product.rating),
-                        }).map((_, i) => (
-                          <StarOutlineIcon
-                            key={i}
-                            className="text-gray-300 w-6"
-                          />
-                        ))}
-                        <p className="ml-2 text-right">
-                          ({product.rating_count.toLocaleString('ko-kr')})
-                        </p>
-                      </div>
+                      <Rating score={product.score} />
                     </div>
                   </Link>
                 ))}
