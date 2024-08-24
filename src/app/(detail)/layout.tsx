@@ -27,7 +27,7 @@ export default async function DetailLayout({
           action={async (form: FormData) => {
             'use server'
 
-            const query = form.get('query') as string
+            const query = form.get('category') as string
             if (!query) {
               return
             }
