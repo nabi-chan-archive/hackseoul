@@ -15,10 +15,14 @@ export default async function Home() {
         'use server'
         await supabase
           .from('category')
-          .upsert({
-            category: formData.get('category') as string,
-          })
-          .eq('category', formData.get('category'))
+          .upsert(
+            {
+              category: formData.get('category') as string,
+            },
+            {
+              onConflict: 'category',
+            }
+          )
           .throwOnError()
         redirect(
           `${encodeURIComponent(formData.get('category') as string)}`,
