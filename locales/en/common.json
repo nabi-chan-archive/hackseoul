@@ -1,1 +1,29 @@
-{}
+{
+  "service.slogan": "Review-first Shopping",
+  "service.description": "Let's find the product you want to buy together!",
+
+  "search.placeholder": "Enter your search term",
+  "search.button": "Search",
+
+  "tab.reviews": "View reviews",
+  "tab.products": "View products",
+
+  "product.review.label": "Review",
+  "product.review.suffix": "reviews",
+
+  "product.price.label": "Price",
+  "product.price.suffix": " KRW",
+
+  "product.score.label": "Score",
+  "product.score.suffix": "/ 100",
+
+  "product.sort.created_at": "Latest",
+  "product.sort.score": "Rating",
+
+  "formatted.score": "Rating : {{ score }}dot",
+
+  "review.card.label": "Purchased product",
+
+  "login.provider.github": "Get started with Github",
+  "login.toast.success": "Login successful!"
+}

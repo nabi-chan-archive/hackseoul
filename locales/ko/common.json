@@ -1,27 +1,27 @@
 {
-  "hello": "안녕하세요!",
-  "service.name": "free-view",
+  "service.slogan": "자유로운 리뷰",
   "service.description": "구매하고 싶은 상품을 함께 찾아볼까요?",
+
   "search.placeholder": "검색어를 입력하세요",
   "search.button": "찾아보기",
-  "reviews": "리뷰 보기",
-  "products": "상품 보기",
 
-  "product.title": "{{ product_name }}",
+  "tab.reviews": "리뷰 보기",
+  "tab.products": "상품 보기",
 
   "product.review.label": "리뷰",
-  "product.review.value": "{{ value }}",
   "product.review.suffix": "개",
+
   "product.price.label": "가격",
-  "product.price.value": "{{ value }}",
   "product.price.suffix": "원",
+
   "product.score.label": "점수",
-  "product.score.value": "{{ value }}",
   "product.score.suffix": "점",
 
   "product.sort.created_at": "최신순",
   "product.sort.score": "평점순",
 
-  "formatted.price": "평점 : {{ score }}점",
-  "formatted.score": "평점 : {{ score }}점"
+  "formatted.score": "평점 : {{ score }}점",
+
+  "login.provider.github": "Github로 시작하기",
+  "login.toast.success": "로그인 성공!"
 }

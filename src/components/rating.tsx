@@ -16,7 +16,7 @@ export function Rating({ score = 5 }: { score: number }) {
           />
         ))}
         {!score.toFixed(1).endsWith('.0') && (
-          <StarFilledIcon className="text-slate-700 w-6" />
+          <StarFilledIcon className="text-slate-300 w-6" />
         )}
         {Array.from({ length: 5 - Math.ceil(score) }).map((_, index) => (
           <StarOutlineIcon

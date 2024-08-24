@@ -19,7 +19,7 @@ export default async function DetailLayout({
   return (
     <>
       <header className="sticky top-0 inset-x-0 p-4 bg-white flex items-center gap-8 z-50">
-        <Link href="/">
+        <Link href="/search">
           <ArrowLeftIcon className="w-8" />
         </Link>
         <form
@@ -36,6 +36,7 @@ export default async function DetailLayout({
           }}
         >
           <input
+            required
             name="category"
             list="categories"
             placeholder={t('search.placeholder')}

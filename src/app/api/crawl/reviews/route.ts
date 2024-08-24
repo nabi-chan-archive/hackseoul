@@ -70,8 +70,7 @@ router.get(async (request: NextRequest) => {
       message: 'success',
       created: list.length,
     })
-  } catch (error) {
-    console.log('crawl failed :', toString(error))
+  } catch {
     return NextResponse.json({ message: 'error' })
   }
 })

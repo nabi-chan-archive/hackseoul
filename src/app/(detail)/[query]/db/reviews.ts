@@ -8,7 +8,6 @@ export async function readReviews(query: string, brand: string) {
   const productIds = products.map((product) => product.id)
 
   if (productIds.length === 0) {
-    console.log('[review] no products %s (%s)', query, brand)
     return {
       reviews: [],
     }
@@ -26,7 +25,6 @@ export async function readReviews(query: string, brand: string) {
   ).then((reviews) => reviews.flat())
 
   if (reviews.length === 0) {
-    console.log('[review] no reviews %s (%s)', query, brand)
     await Promise.all(
       productIds.map(async (productId) => {
         await setTimeout(1000)
@@ -48,13 +46,6 @@ export async function readReviews(query: string, brand: string) {
       )
     ).then((reviews) => reviews.flat())
   }
-
-  console.log(
-    '[review] reviews length %d %s (%s)',
-    reviews.length,
-    query,
-    brand
-  )
 
   return { reviews }
 }

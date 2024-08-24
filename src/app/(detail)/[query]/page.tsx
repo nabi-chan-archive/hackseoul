@@ -18,7 +18,7 @@ export default async function Page({
       <Tab
         tabs={[
           {
-            label: t('reviews'),
+            label: t('tab.reviews'),
             content: (
               <Reviews
                 query={query}
@@ -27,7 +27,7 @@ export default async function Page({
             ),
           },
           {
-            label: t('products'),
+            label: t('tab.products'),
             content: (
               <Products
                 query={query}

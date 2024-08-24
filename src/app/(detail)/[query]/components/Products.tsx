@@ -21,7 +21,7 @@ export default async function Products({
         {brands.map((brand) => (
           <a
             key={brand.label}
-            href={`/${query}?tab=${t('products')}&brand=${brand.id}`}
+            href={`/${query}?tab=${t('tab.products')}&brand=${brand.id}`}
             className="p-2 border-2 border-slate-200 rounded-xl text-nowrap"
           >
             {brand.label}
@@ -44,7 +44,10 @@ export default async function Products({
             />
             <div className="w-full flex flex-col justify-center overflow-hidden gap-2">
               <h1 className="font-bold truncate">{product.title}</h1>
-              <p>{Number(product.price).toLocaleString('ko')} 원</p>
+              <p>
+                {Number(product.price).toLocaleString('ko')}
+                {t('product.price.suffix')}
+              </p>
               <Rating score={product.rating} />
             </div>
           </Link>

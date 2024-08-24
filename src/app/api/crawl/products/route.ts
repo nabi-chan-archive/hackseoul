@@ -88,9 +88,7 @@ router.get(async (request: NextRequest) => {
       products: products.length,
       categories: categories.length,
     })
-  } catch (error) {
-    console.log(error)
-    console.log('crawl failed :', JSON.stringify(error, null, 2))
+  } catch {
     return NextResponse.json({ message: 'error' })
   }
 })

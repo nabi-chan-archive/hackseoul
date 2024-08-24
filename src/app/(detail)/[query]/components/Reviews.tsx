@@ -22,7 +22,7 @@ export default async function Reviews({
         {brands.map((brand) => (
           <a
             key={brand.label}
-            href={`/${query}?tab=${t('reviews')}&brand=${brand.id}`}
+            href={`/${query}?tab=${t('tab.reviews')}&brand=${brand.id}`}
             className="p-2 border-2 border-slate-200 rounded-xl text-nowrap"
           >
             {brand.label}

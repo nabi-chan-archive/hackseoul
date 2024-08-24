@@ -28,7 +28,8 @@
     "next-translate": "^2.6.2",
     "qs": "^6.12.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@channel.io/eslint-config": "^2.1.0",

@@ -38,7 +38,7 @@ export default async function Page({
     .then((reviews) => reviews.data ?? [])
 
   if (reviews.length === 0) {
-    const response = await Promise.all(
+    await Promise.all(
       Array.from({ length: min([product?.rating_count / 25, 10]) ?? 1 }).map(
         async (_, index) => {
           await setTimeout(1000)
@@ -49,12 +49,6 @@ export default async function Page({
         }
       )
     )
-
-    console.log({
-      type: 'crawl_success',
-      productId,
-      created: response.reduce((prev, { created }) => prev + created, 0),
-    })
 
     reviews = await supabase
       .from('reviews')
@@ -81,19 +75,14 @@ export default async function Page({
           />
         </div>
         <h1 className="font-bold text-xl whitespace-pre-wrap mt-6">
-          {t('product.title', {
-            product_name: product.title.split(' ').slice(0, 6).join(' '),
-            count: product.rating_count,
-          })}
+          {product.title.split(' ').slice(0, 6).join(' ')}
         </h1>
         <div className="pt-4 flex flex-col gap-2">
           <dl className="grid grid-cols-3 items-center">
             <dt className="text-lg font-bold">{t('product.price.label')}</dt>
             <dd className="col-span-2 flex items-baseline gap-1">
               <span className="text-2xl font-bold">
-                {t('product.price.value', {
-                  value: product.price.toLocaleString(),
-                })}
+                {product.price.toLocaleString()}
               </span>
               <span className="text-sm">{t('product.price.suffix')}</span>
             </dd>
@@ -102,9 +91,7 @@ export default async function Page({
             <dt className="text-lg font-bold">{t('product.review.label')}</dt>
             <dd className="col-span-2 flex items-baseline gap-1">
               <span className="text-2xl font-bold">
-                {t('product.review.value', {
-                  value: product.rating_count.toLocaleString(),
-                })}
+                {product.rating_count.toLocaleString()}
               </span>
               <span className="text-sm">{t('product.review.suffix')}</span>
             </dd>
@@ -112,9 +99,7 @@ export default async function Page({
           <dl className="grid grid-cols-3 items-center">
             <dt className="text-lg font-bold">{t('product.score.label')}</dt>
             <dd className="col-span-2 flex items-baseline gap-1">
-              <span className="text-2xl font-bold">
-                {t('product.score.value', { value: product.rating * 20 })}
-              </span>
+              <span className="text-2xl font-bold">{product.rating * 20}</span>
               <span className="text-sm">{t('product.score.suffix')}</span>
             </dd>
           </dl>
@@ -145,17 +130,17 @@ export default async function Page({
             {/* 상품명 / 리뷰 제목 */}
             <div className="flex flex-col">
               <dl>
-                <dt className="hidden">상품명</dt>
+                <dt className="hidden" />
                 <dd className="truncate text-sm text-slate-500">
                   {review.product_name}
                 </dd>
               </dl>
               <dl>
-                <dt className="hidden">리뷰 제목</dt>
+                <dt className="hidden" />
                 <dd className="text-lg font-bold truncate">{review.title}</dd>
               </dl>
               <dl>
-                <dt className="hidden">리뷰 내용</dt>
+                <dt className="hidden" />
                 <dd className="line-clamp-3">{review.content}</dd>
               </dl>
             </div>
