@@ -2,8 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import createTranslation from 'next-translate/createTranslation'
 import { Rating } from '@/components/rating'
-import { http } from '@/utils/http'
-import { supabase } from '@/utils/supabase/client'
+import { readProducts } from '@/app/(detail)/[query]/db/products'
 
 export default async function Products({
   query,
@@ -14,43 +13,7 @@ export default async function Products({
 }) {
   const { t } = createTranslation('common')
 
-  let brands = await supabase
-    .from('brands')
-    .select('id, label')
-    .eq('query', query)
-    .throwOnError()
-    .then((response) => response.data ?? [])
-
-  let products = await supabase
-    .from('products')
-    .select('*')
-    .eq('query', query)
-    .eq('brand', brand ?? undefined)
-    .throwOnError()
-
-  if (products.data?.length === 0) {
-    await http.get('/api/crawl/products', {
-      query,
-      brand: brand ?? undefined,
-      page: 1,
-    })
-
-    products = await supabase
-      .from('products')
-      .select('*')
-      .eq('query', query)
-      .eq('brand', brand ?? undefined)
-      .throwOnError()
-
-    brands = await supabase
-      .from('brands')
-      .select('id, label')
-      .eq('query', query)
-      .throwOnError()
-      .then((response) => response.data ?? [])
-  }
-
-  console.log('products length', products.data?.length, query, brand)
+  const { brands, products } = await readProducts(query, brand)
 
   return (
     <>
@@ -66,7 +29,7 @@ export default async function Products({
         ))}
       </nav>
       <div className="p-4 flex flex-col gap-4">
-        {products.data?.map((product) => (
+        {products.map((product) => (
           <Link
             key={product.id}
             href={`/product/${product.id}`}

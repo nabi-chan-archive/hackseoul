@@ -1,9 +1,8 @@
 import createTranslation from 'next-translate/createTranslation'
-import { setTimeout } from 'timers/promises'
-import { supabase } from '@/utils/supabase/client'
 import { Rating } from '@/components/rating'
 import { Card } from '@/components/card'
-import { http } from '@/utils/http'
+import { readProducts } from '@/app/(detail)/[query]/db/products'
+import { readReviews } from '@/app/(detail)/[query]/db/reviews'
 
 export default async function Reviews({
   query,
@@ -14,85 +13,8 @@ export default async function Reviews({
 }) {
   const { t } = createTranslation('common')
 
-  let brands = await supabase
-    .from('brands')
-    .select('id, label')
-    .eq('query', query)
-    .throwOnError()
-    .then((response) => response.data ?? [])
-
-  let products = await supabase
-    .from('products')
-    .select('id')
-    .eq('query', query)
-    .eq('brand', brand ?? undefined)
-    .throwOnError()
-    .then((response) => response.data ?? [])
-    .then((products) => products.map((product) => product.id as string))
-
-  if (products?.length === 0) {
-    await http.get('/api/crawl/products', {
-      query,
-      brand: brand ?? undefined,
-      page: 1,
-    })
-
-    products = await supabase
-      .from('products')
-      .select('*')
-      .eq('query', query)
-      .eq('brand', brand ?? undefined)
-      .throwOnError()
-      .then((response) => response.data ?? [])
-
-    brands = await supabase
-      .from('brands')
-      .select('id, label')
-      .eq('query', query)
-      .throwOnError()
-      .then((response) => response.data ?? [])
-  }
-
-  let reviews = []
-  if (products.length > 0) {
-    reviews = await Promise.all(
-      Array.from({ length: Math.round(products.length / 25) }, (_, index) =>
-        supabase
-          .from('reviews')
-          .select('*')
-          .in('product_id', products.slice(index * 25, (index + 1) * 25))
-          .throwOnError()
-          .then((response) => response.data ?? [])
-      )
-    ).then((responses) => responses.flat())
-
-    if (reviews.length === 0) {
-      await Promise.all(
-        products.slice(0, 25).map(async (productId) => {
-          await setTimeout(1000)
-          return http.get('/api/crawl/reviews', {
-            productId,
-            page: 1,
-          })
-        })
-      )
-
-      await Promise.all(
-        products.map(async (productId) => {
-          await setTimeout(1000)
-          return await supabase
-            .from('reviews')
-            .select('*')
-            .eq('product_id', productId)
-            .throwOnError()
-            .then((response) => response.data ?? [])
-        })
-      ).then((responses) => {
-        reviews = responses.flat()
-      })
-    }
-    console.log('reviews length', reviews?.length, query)
-  }
+  const { brands } = await readProducts(query, brand)
+  const { reviews } = await readReviews(query, brand)
 
   return (
     <>
