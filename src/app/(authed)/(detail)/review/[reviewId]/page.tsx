@@ -56,6 +56,10 @@ export default async function Page({
         <Rating score={review.score} />
       </header>
       <main className="p-4">
+        <h3 className="font-bold">AI 요약</h3>
+        <p className="whitespace-pre-wrap break-keep">{review.ai_summary}</p>
+        <hr className="my-2" />
+        <h3 className="font-bold">리뷰 내용</h3>
         <p className="whitespace-pre-wrap break-keep">{review.content}</p>
       </main>
       <footer className="p-4 flex flex-col gap-2">
