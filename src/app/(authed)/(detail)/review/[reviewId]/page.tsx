@@ -64,7 +64,7 @@ export default async function Page({
         <dl className="grid grid-cols-3 items-center">
           <dt className="text-lg font-bold">{t('product.keywords.label')}</dt>
           <dd className="col-span-2 flex items-baseline gap-1">
-            {review.ai_keywords.map((keyword: string) => (
+            {review.ai_keywords?.map((keyword: string) => (
               <span
                 className="px-2 py-1 bg-slate-300 rounded-md"
                 key={keyword}
