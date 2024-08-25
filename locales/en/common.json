@@ -27,5 +27,8 @@
   "review.card.label": "Purchased product",
 
   "login.provider.github": "Get started with Github",
-  "login.toast.success": "Login successful!"
+  "login.toast.success": "Login successful!",
+
+  "nav.home": "Home",
+  "nav.my_page": "My Page"
 }
