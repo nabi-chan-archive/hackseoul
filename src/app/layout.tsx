@@ -23,10 +23,10 @@ export default function RootLayout({
       lang="ko"
       className={inter.className}
     >
-      <body className="p-8 h-screen">
+      <body className="lg:p-8 h-screen">
         <ReactQueryProviders>
           <NiceModalProvider>
-            <div className="max-w-lg mx-auto shadow-xl border-gray-50 border-[1px] border-solid h-full overflow-y-auto rounded-lg">
+            <div className="lg:max-w-lg mx-auto lg:shadow-xl border-gray-50 lg:border-[1px] border-solid h-full overflow-y-auto lg:rounded-lg">
               {children}
               <Toaster position="bottom-center" />
             </div>
