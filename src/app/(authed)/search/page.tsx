@@ -1,10 +1,10 @@
 import { redirect, RedirectType } from 'next/navigation'
 import createTranslation from 'next-translate/createTranslation'
 import { format } from 'date-fns'
+import Image from 'next/image'
 import { supabase } from '@/utils/supabase/client'
 import { Card } from '@/components/card'
 import { Rating } from '@/components/rating'
-import Image from 'next/image'
 
 export default async function Home() {
   const { t } = createTranslation('common')
