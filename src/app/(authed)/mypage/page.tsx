@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { format } from 'date-fns'
+import createTranslation from 'next-translate/createTranslation'
 import people from '@/assets/people.png'
 import wallet from '@/assets/wallet.png'
 import plusOne from '@/assets/+1.png'
@@ -9,6 +10,7 @@ import { Card } from '@/components/card'
 import { Rating } from '@/components/rating'
 
 export default async function Page() {
+  const { t } = createTranslation('common')
   const reviews = await supabase
     .from('reviews')
     .select('*')
@@ -42,13 +44,15 @@ export default async function Page() {
         id="badges"
         className="py-4 flex flex-col gap-4"
       >
-        <h2 className="text-xl font-bold px-4">My freview Activity</h2>
+        <h2 className="text-xl font-bold px-4">My Activity</h2>
         <div className="flex flex-nowrap gap-4 px-4 pb-4 overflow-x-auto overflow-y-visible snap-x snap-start">
           <dl className="aspect-square rounded-lg shadow-lg min-w-48 p-4 flex flex-col gap-2">
             <dt className="font-bold text-lg text-[#2A3CE5]">
-              누적 리뷰 조회수
+              {t('my_page.badges.views.label')}
             </dt>
-            <dd className="whitespace-pre-wrap font-bold text-lg">{`지금까지 150명이\n내 리뷰를 봤어요`}</dd>
+            <dd className="whitespace-pre-wrap font-bold text-lg">
+              {t('my_page.badges.views.value')}
+            </dd>
             <div className="flex justify-end">
               <Image
                 className="w-10"
@@ -60,9 +64,11 @@ export default async function Page() {
 
           <dl className="aspect-square rounded-lg shadow-lg min-w-48 p-4 flex flex-col gap-2">
             <dt className="font-bold text-lg text-[#2A3CE5]">
-              추천인 코드 적립금
+              {t('my_page.badges.points.label')}
             </dt>
-            <dd className="whitespace-pre-wrap font-bold text-lg">{`지금까지 50,000원\n을 적립했어요`}</dd>
+            <dd className="whitespace-pre-wrap font-bold text-lg">
+              {t('my_page.badges.points.value')}
+            </dd>
             <div className="flex justify-end">
               <Image
                 className="w-10"
@@ -73,8 +79,12 @@ export default async function Page() {
           </dl>
 
           <dl className="aspect-square rounded-lg shadow-lg min-w-48 p-4 flex flex-col gap-2">
-            <dt className="font-bold text-lg text-[#2A3CE5]">누적 좋아요 수</dt>
-            <dd className="whitespace-pre-wrap font-bold text-lg">{`지금까지 150개의\n좋아요를 받았어요`}</dd>
+            <dt className="font-bold text-lg text-[#2A3CE5]">
+              {t('my_page.badges.likes.label')}
+            </dt>
+            <dd className="whitespace-pre-wrap font-bold text-lg">
+              {t('my_page.badges.likes.value')}
+            </dd>
             <div className="flex justify-end">
               <Image
                 className="w-10"
@@ -85,8 +95,12 @@ export default async function Page() {
           </dl>
 
           <dl className="aspect-square rounded-lg shadow-lg min-w-48 p-4 flex flex-col gap-2">
-            <dt className="font-bold text-lg text-[#2A3CE5]">누적 책갈피 수</dt>
-            <dd className="whitespace-pre-wrap font-bold text-lg">{`지금까지 200개의\n책갈피를 받았어요`}</dd>
+            <dt className="font-bold text-lg text-[#2A3CE5]">
+              {t('my_page.badges.bookmarks.label')}
+            </dt>
+            <dd className="whitespace-pre-wrap font-bold text-lg">
+              {t('my_page.badges.bookmarks.value')}
+            </dd>
             <div className="flex justify-end">
               <Image
                 className="w-10"

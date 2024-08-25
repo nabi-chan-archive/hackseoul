@@ -30,5 +30,17 @@
   "login.toast.success": "Login successful!",
 
   "nav.home": "Home",
-  "nav.my_page": "My Page"
+  "nav.my_page": "My Page",
+
+  "my_page.badges.views.label": "Views",
+  "my_page.badges.views.value": "150 people\nhave viewed my review",
+
+  "my_page.badges.points.label": "Referral code",
+  "my_page.badges.points.value": "Accumulated 50,000 won",
+
+  "my_page.badges.likes.label": "Likes",
+  "my_page.badges.likes.value": "Received 200 likes",
+
+  "my_page.badges.bookmarks.label": "Bookmarks",
+  "my_page.badges.bookmarks.value": "Received 200 bookmarks"
 }
