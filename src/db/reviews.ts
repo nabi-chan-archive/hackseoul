@@ -14,13 +14,15 @@ export async function readReviews(query: string, brand: string) {
   }
 
   let reviews = await Promise.all(
-    Array.from({ length: Math.round(productIds.length / 25) }, (_, index) =>
-      supabase
-        .from('reviews')
-        .select('*')
-        .in('product_id', productIds.slice(index * 25, (index + 1) * 25))
-        .throwOnError()
-        .then((response) => response.data ?? [])
+    Array.from(
+      { length: Math.max(Math.round(productIds.length / 25), 1) },
+      (_, index) =>
+        supabase
+          .from('reviews')
+          .select('*')
+          .in('product_id', productIds.slice(index * 25, (index + 1) * 25))
+          .throwOnError()
+          .then((response) => response.data ?? [])
     )
   ).then((reviews) => reviews.flat())
 
@@ -36,13 +38,15 @@ export async function readReviews(query: string, brand: string) {
     )
 
     reviews = await Promise.all(
-      Array.from({ length: Math.round(productIds.length / 25) }, (_, index) =>
-        supabase
-          .from('reviews')
-          .select('*')
-          .in('product_id', productIds.slice(index * 25, (index + 1) * 25))
-          .throwOnError()
-          .then((response) => response.data ?? [])
+      Array.from(
+        { length: Math.max(Math.round(productIds.length / 25), 1) },
+        (_, index) =>
+          supabase
+            .from('reviews')
+            .select('*')
+            .in('product_id', productIds.slice(index * 25, (index + 1) * 25))
+            .throwOnError()
+            .then((response) => response.data ?? [])
       )
     ).then((reviews) => reviews.flat())
   }
