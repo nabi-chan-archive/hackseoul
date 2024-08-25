@@ -44,28 +44,28 @@ bun dev
             <br/>
             <b style='font-size:12px'>Developer</b>
             <br/>
-            <img src='docs/nabi.jpeg' width='200px'>
+            <img src='docs/nabi.jpeg' width='200px' height="200px" style="object-fit: cover;">
         </td>
         <td style="width: 25%;">
             <b>Jisun Lee</b>
             <br/>
             <b style='font-size:12px'>Developer</b>
             <br/>
-            <img src='docs/jisun.jpeg' width='200px'>
+            <img src='docs/jisun.jpeg' width='200px' height="200px" style="object-fit: cover;">
         </td>
         <td style="width: 25%;">
             <b>Sohee Kim</b>
             <br/>
             <b style='font-size:12px'>Product Manager</b>
             <br/>
-            <img src='docs/sohee.jpeg' width='200px'>
+            <img src='docs/sohee.jpeg' width='200px' height="200px" style="object-fit: cover;">
         </td>
         <td style="width: 25%;">
             <b>SoJung Kim</b>
             <br/>
             <b style='font-size:12px'>Designer</b>
             <br/>
-            <img src='docs/sojung.jpeg' width='200px'>
+            <img src='docs/sojung.jpeg' width='200px' height="200px" style="object-fit: cover;">
         </td>
 </table>
 
