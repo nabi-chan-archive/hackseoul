@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import { supabase } from '@/utils/supabase/client'
 import { Card } from '@/components/card'
 import { Rating } from '@/components/rating'
+import Image from 'next/image'
 
 export default async function Home() {
   const { t } = createTranslation('common')
@@ -21,6 +22,25 @@ export default async function Home() {
 
   return (
     <div>
+      <section
+        id="banner"
+        className="h-80 relative"
+      >
+        <div className="bg-gradient-to-b from-white/5 to-white h-full">
+          <Image
+            src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7"
+            alt=""
+            className="object-cover absolute inset-0 -z-10 w-full h-full"
+            width={300}
+            height={300}
+          />
+        </div>
+        <div className="absolute inset-0 p-4 flex gap-2 flex-col justify-end">
+          <div className="text-3xl font-bold">나비 님,</div>
+          <div className="text-3xl font-bold text-[#2A3CE5]">커피머신</div>
+          <div className="text-3xl font-bold">한 번 둘러보실래요?</div>
+        </div>
+      </section>
       <form
         action={async (formData: FormData) => {
           'use server'
@@ -42,9 +62,6 @@ export default async function Home() {
         }}
         className="flex flex-col items-center justify-center h-full p-8 gap-4"
       >
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold">{t('service.description')}</h1>
-        </div>
         <input
           required
           name="category"
