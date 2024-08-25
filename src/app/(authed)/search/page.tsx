@@ -2,6 +2,7 @@ import { redirect, RedirectType } from 'next/navigation'
 import createTranslation from 'next-translate/createTranslation'
 import { format } from 'date-fns'
 import Image from 'next/image'
+import Trans from 'next-translate/Trans'
 import { supabase } from '@/utils/supabase/client'
 import { Card } from '@/components/card'
 import { Rating } from '@/components/rating'
@@ -36,9 +37,19 @@ export default async function Home() {
           />
         </div>
         <div className="absolute inset-0 p-4 flex gap-2 flex-col justify-end">
-          <div className="text-3xl font-bold">나비 님,</div>
-          <div className="text-3xl font-bold text-[#2A3CE5]">커피머신</div>
-          <div className="text-3xl font-bold">한 번 둘러보실래요?</div>
+          <h1 className="text-3xl font-bold whitespace-pre-wrap">
+            <Trans
+              i18nKey="home.title"
+              components={[
+                <br key="0" />,
+                <span
+                  key="1"
+                  className="text-[#2A3CE5] font-bold"
+                />,
+              ]}
+              values={{ username: 'nabi', category: 'coffee machine' }}
+            />
+          </h1>
         </div>
       </section>
       <form
@@ -60,7 +71,7 @@ export default async function Home() {
             RedirectType.push
           )
         }}
-        className="flex flex-col items-center justify-center h-full p-8 gap-4"
+        className="flex flex-col items-center justify-center h-full p-4 gap-4"
       >
         <input
           required

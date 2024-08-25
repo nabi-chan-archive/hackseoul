@@ -1,6 +1,7 @@
 {
   "service.slogan": "Review-first Shopping",
   "service.description": "Let's find the product you want to buy together!",
+  "home.title": "Hello {{ username }},<0 />How about <1>{{ category }}</1>?",
 
   "search.placeholder": "Enter your search term",
   "search.button": "Search",
