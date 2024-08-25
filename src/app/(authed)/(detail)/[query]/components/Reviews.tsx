@@ -1,8 +1,8 @@
 import createTranslation from 'next-translate/createTranslation'
 import { Rating } from '@/components/rating'
 import { Card } from '@/components/card'
-import { readProducts } from '@/app/(detail)/[query]/db/products'
-import { readReviews } from '@/app/(detail)/[query]/db/reviews'
+import { readProducts } from '@/db/products'
+import { readReviews } from '@/db/reviews'
 
 export default async function Reviews({
   query,
