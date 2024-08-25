@@ -26,7 +26,7 @@ export async function readReviews(query: string, brand: string) {
     )
   ).then((reviews) => reviews.flat())
 
-  if (reviews.length === 0) {
+  if (reviews.length < 10) {
     await Promise.all(
       productIds.map(async (productId) => {
         await setTimeout(1000)

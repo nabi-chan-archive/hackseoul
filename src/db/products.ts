@@ -17,7 +17,7 @@ export async function readProducts(query: string, brand: string) {
     .throwOnError()
     .then((response) => response.data ?? [])
 
-  if (products.length === 0) {
+  if (products.length < 10) {
     await http.get('/api/crawl/products', {
       query,
       brand: brand ?? undefined,

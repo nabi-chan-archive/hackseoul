@@ -81,10 +81,13 @@ router.get(async (request: NextRequest) => {
                 '당신은 작성자의 리뷰를 요약해주는 AI 입니다. 다음 조건에 맞추어 리뷰를 가공하세요.' +
                 '1. 리뷰 제목은 ai_title 이라는 이름의 key 를 가져야 하고, 제목의 형태로 작성되어야 합니다.' +
                 '2. 리뷰 내용은 ai_summary 이라는 이름의 key 를 가져야 하고, 작성자가 말한 내용을 요약하여 작성자가 이러한 내용을 말했다고 설명해야 합니다.' +
-                '3. 모든 응답은 JSON 형태로 작성하세요' +
-                '4. JSON 형식 이외의 아무런 응답도 하지 마세요.' +
-                '5. 딱딱한 말투지만 존댓말로 사용해주세요.' +
-                '6. 이 리뷰를 남긴 사람이 어떤 주요주장을 작성했고 그렇게 생각한 원인까지 사실 위주로 함께 브리프해주어야 합니다.',
+                '3. 리뷰의 핵심 키워드는 ai_keywords 이라는 이름의 key 를 가져야 하고, 작성자가 말한 내용중 핵심 키워드를 최대 3개를 추출해 string array의 형태로 표시해야 합니다.' +
+                '3-1. 키워드를 찾을 수 없을 경우 빈 배열로 표시하세요' +
+                '4. 모든 응답은 JSON 형태로 작성하세요' +
+                '5. JSON 형식 이외의 아무런 응답도 하지 마세요.' +
+                '6. 딱딱한 말투지만 존댓말로 사용해주세요.' +
+                '7. 이 리뷰를 남긴 사람이 어떤 주요주장을 작성했고 그렇게 생각한 원인까지 사실 위주로 함께 브리프해주어야 합니다.' +
+                '8. 상품과 연관이 없는 이야기는 제외해주세요.',
             },
             {
               role: 'user',
@@ -93,7 +96,7 @@ router.get(async (request: NextRequest) => {
           ],
         })
 
-        await supabase
+        const response = await supabase
           .from('reviews')
           .update(
             JSON.parse(
@@ -103,6 +106,10 @@ router.get(async (request: NextRequest) => {
             )
           )
           .eq('id', item.id)
+
+        if (response.error) {
+          console.error(item.id, response.error)
+        }
       })
     )
 
