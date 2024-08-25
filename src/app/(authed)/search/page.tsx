@@ -1,6 +1,9 @@
 import { redirect, RedirectType } from 'next/navigation'
 import createTranslation from 'next-translate/createTranslation'
+import { format } from 'date-fns'
 import { supabase } from '@/utils/supabase/client'
+import { Card } from '@/components/card'
+import { Rating } from '@/components/rating'
 
 export default async function Home() {
   const { t } = createTranslation('common')
@@ -9,52 +12,96 @@ export default async function Home() {
     .select('id, category')
     .throwOnError()
 
+  const reviews = await supabase
+    .from('reviews')
+    .select('*')
+    .limit(3)
+    .throwOnError()
+    .then((r) => r.data ?? [])
+
   return (
-    <form
-      action={async (formData: FormData) => {
-        'use server'
-        await supabase
-          .from('category')
-          .upsert(
-            {
-              category: formData.get('category') as string,
-            },
-            {
-              onConflict: 'category',
-            }
+    <div>
+      <form
+        action={async (formData: FormData) => {
+          'use server'
+          await supabase
+            .from('category')
+            .upsert(
+              {
+                category: formData.get('category') as string,
+              },
+              {
+                onConflict: 'category',
+              }
+            )
+            .throwOnError()
+          redirect(
+            `${encodeURIComponent(formData.get('category') as string)}`,
+            RedirectType.push
           )
-          .throwOnError()
-        redirect(
-          `${encodeURIComponent(formData.get('category') as string)}`,
-          RedirectType.push
-        )
-      }}
-      className="flex flex-col items-center justify-center h-full p-8 gap-4"
-    >
-      <div className="flex flex-col items-center">
-        <h1 className="text-2xl font-bold">{t('service.description')}</h1>
-      </div>
-      <input
-        required
-        name="category"
-        list="categories"
-        placeholder={t('search.placeholder')}
-        className="border-2 rounded-md p-4 w-full"
-      />
-      <datalist id="categories">
-        {categories.data?.map(({ id, category }) => (
-          <option
-            key={id}
-            value={category}
-          />
-        ))}
-      </datalist>
-      <button
-        type="submit"
-        className="bg-[#2A3CE5] text-white px-6 py-3 rounded-md w-full font-bold"
+        }}
+        className="flex flex-col items-center justify-center h-full p-8 gap-4"
       >
-        {t('search.button')}
-      </button>
-    </form>
+        <div className="flex flex-col items-center">
+          <h1 className="text-2xl font-bold">{t('service.description')}</h1>
+        </div>
+        <input
+          required
+          name="category"
+          list="categories"
+          placeholder={t('search.placeholder')}
+          className="border-2 rounded-md p-4 w-full"
+        />
+        <datalist id="categories">
+          {categories.data?.map(({ id, category }) => (
+            <option
+              key={id}
+              value={category}
+            />
+          ))}
+        </datalist>
+        <button
+          type="submit"
+          className="bg-[#2A3CE5] text-white px-6 py-3 rounded-md w-full font-bold"
+        >
+          {t('search.button')}
+        </button>
+      </form>
+      <section id="reviews">
+        <h2 className="px-4 pt-6 font-bold text-xl">Trending Reviews</h2>
+        <div className="flex flex-col gap-4 px-4 pt-6 py-12">
+          {reviews.map((review) => (
+            <Card
+              key={review.id}
+              href={`/review/${review.id}`}
+              image={review.images[0]}
+            >
+              {/* 상품명 / 리뷰 제목 */}
+              <div className="flex flex-col">
+                <dl>
+                  <dt className="hidden" />
+                  <dd className="truncate text-sm text-slate-500">
+                    {review.product_name}
+                  </dd>
+                </dl>
+                <dl>
+                  <dt className="hidden" />
+                  <dd className="text-lg font-bold line-clamp-2">
+                    {review.title}
+                  </dd>
+                </dl>
+              </div>
+              {/* 별점 */}
+              <div className="flex gap-2 items-center justify-between">
+                <Rating score={review.score} />
+                <span className="text-sm text-slate-500">
+                  {format(review.reviewed_at, 'yyyy-MM-dd')}
+                </span>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+    </div>
   )
 }
