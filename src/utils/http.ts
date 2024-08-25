@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_HOMEPAGE_URL ?? '',
-  timeout: 10000,
+  timeout: 50000,
 })
 
 export const http = {

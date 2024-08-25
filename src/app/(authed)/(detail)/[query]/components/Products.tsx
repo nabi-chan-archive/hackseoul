@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import createTranslation from 'next-translate/createTranslation'
 import { Rating } from '@/components/rating'
-import { readProducts } from '@/app/(detail)/[query]/db/products'
+import { readProducts } from '@/db/products'
 
 export default async function Products({
   query,

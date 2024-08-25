@@ -1,12 +1,17 @@
 'use client'
 
 import { HomeIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { wrap } from '@suspensive/react'
 import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 
-export default function DetailLayout({ children }: { children: ReactNode }) {
+export default wrap.Suspense().on(function DetailLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   const pathname = usePathname()
   const { t } = useTranslation('common')
 
@@ -37,4 +42,4 @@ export default function DetailLayout({ children }: { children: ReactNode }) {
       </footer>
     </>
   )
-}
+})
